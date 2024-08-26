@@ -1,6 +1,8 @@
 /* body {
+/* body {
     background-image: url('BACKGROUND1.jpg'); 
     background-size: cover;
+} */
 } */
 
 h1 {
@@ -41,6 +43,17 @@ h1 {
 .password:-webkit-autofill {
     -webkit-text-fill-color: inherit;
     transition: background-color 5000s ease-in-out 0s;
+    outline: none;
+}
+
+.username:-webkit-autofill {
+    -webkit-text-fill-color: inherit;
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+.password:-webkit-autofill {
+    -webkit-text-fill-color: inherit;
+    transition: background-color 5000s ease-in-out 0s;
 }
 
 .input-box1 .el-icon-user, 
@@ -54,6 +67,7 @@ h1 {
 }
 
 .login:hover, .login:focus{
+    background-color: #3892e6;
     background-color: #3892e6;
     box-shadow: 2px 4px 12px rgb(185, 184, 184);
 }

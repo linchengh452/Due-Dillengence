@@ -1,9 +1,23 @@
-/* body {
-/* body {
-    background-image: url('BACKGROUND1.jpg'); 
+body {
+    position: relative;
+    margin: 0;
+    padding: 0;
+    background-image: url('background.jpg');
     background-size: cover;
-} */
-} */
+    background-position: center -73px;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* background-color: rgba(255, 255, 255, 0.137);  */
+    z-index: -1;
+    pointer-events: none;
+}
 
 h1 {
     font-style: italic;
@@ -102,7 +116,7 @@ h1 {
 label {
     font-size: 13px; 
     font-weight: bold;
-    color: #333;  
+    color: black; 
     vertical-align: middle; 
     margin-left: 4px;
 }
@@ -141,4 +155,38 @@ label {
     transform: translateY(-50%);
     cursor: pointer;
 }
+
+footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: transparent;
+    font-size: 14px;
+    margin-top: 400px; 
+    margin-left: 100px;
+    margin-right: 100px;
+}
+
+.footer-links {
+    display: flex;
+    gap: 30px;
+}
+
+.footer-links a {
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+}
+
+.footer-rights {
+    text-align: right;
+    color: black;
+    font-weight: bold;
+}
+
+footer p {
+    margin: 0; 
+}
+
 /*需要做移动端吗*/

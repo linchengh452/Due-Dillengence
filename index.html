@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="style.css">
     <script src="https://unpkg.com/vue@2"></script>
     <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <script src="togglePassword.js"></script>
 </head>
 <body>
     <div class="background">
@@ -21,11 +22,26 @@
     
     <div class="input-box">
         <i class="el-icon-lock"></i>
-        <input type="password" class="password" name="password" placeholder="Password">
+        <input type="password" class="password" name="password" placeholder="Password" id="password">
+        <i class="el-icon-view" id="togglePassword" style="cursor: pointer;"></i>
     </div>
     
     <div class="input-box">
-        <input type="button" class="login" name="login" value="Login">
+        <input type="button" class="login" name="login" value="LOGIN">
+    </div>
+
+    <div class="input-box2">
+        <input type="checkbox" class="checkbox" name="checkbox" placeholder="Remember me">
+        <label for="remember">Remember me</label>
+        <a href="forgot.html" class="forgot-password">Forgot Password?</a>
+    </div>
+
+    <div class="input-box3">
+        <a href="signup.html" class="signup">SignUp</a>
+    </div>
+
+    <div class="input-box4">
+        <a href="needhelp.html" class="needhelp">Need help?</a>
     </div>
 </body>
 </html>

@@ -73,8 +73,8 @@ docker compose up web #启动docker服务中的web服务，并且在前台运行
 - [x] 管理员面板：GET /admin/admin-dashboard
 - [x] 查看所有用户：GET /admin/users
 ### 风险评估
-- [] 创建和管理公司信息
-- [] 为公司创建风险评估
-- [] 管理风险类别和子类别
+- [ ] 创建和管理公司信息
+- [ ] 为公司创建风险评估
+- [ ] 管理风险类别和子类别
 
 

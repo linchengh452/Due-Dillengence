@@ -48,7 +48,7 @@
 ### Clone the Project
 ```bash
 git clone https://github.com/RoyX0423/IT-project-Team92.git
-cd IT-project-Team92
+cd IT-project-Team92/backend
 ```
 
 ### Running with Docker

@@ -46,7 +46,7 @@
 ### 克隆项目
 ```bash
 git clone https://github.com/RoyX0423/IT-project-Team92.git
-cd research-due-diligence
+cd IT-project-Team92
 ```
 
 ### 使用 Docker 运行

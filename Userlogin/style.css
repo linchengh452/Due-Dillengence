@@ -108,7 +108,7 @@ h1 {
 }
 
 .checkbox {
-    margin-left: 753px; 
+    margin-left: 762px; 
     vertical-align: middle; 
     cursor: pointer;
 }
@@ -119,6 +119,15 @@ label {
     color: black; 
     vertical-align: middle; 
     margin-left: 4px;
+}
+
+.needhelp2 {
+    font-weight: bold;
+    font-size: 13px; 
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+    margin-top: 20px;
+    margin-left: 10px;
 }
 
 .forgot-password,.needhelp {
@@ -134,13 +143,14 @@ label {
     font-size: 13px;
     font-weight: bold;
     margin-top: 8px;
-    margin-left: 753px; 
+    margin-left: 762px; 
     vertical-align: middle; 
     color: black;
     cursor: pointer;
 }
 
 .input-box4 {
+    display: flex;
     font-size: 13px;
     font-weight: bold;
     margin-top: -250px;
@@ -188,5 +198,3 @@ footer {
 footer p {
     margin: 0; 
 }
-
-/*需要做移动端吗*/

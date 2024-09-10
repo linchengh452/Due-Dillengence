@@ -30,7 +30,6 @@ h1 {
 
 .input-box1, .input-box {
     position: relative;
-    margin-top: 25px;
     text-align: center;
     width: 400px;
     margin: 20px auto; 
@@ -121,16 +120,32 @@ label {
     margin-left: 4px;
 }
 
+.needhelp {
+    font-weight: bold;
+    font-size: 13px; 
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+    margin-right: -315px; 
+}
+
 .needhelp2 {
     font-weight: bold;
     font-size: 13px; 
     color: rgb(0, 0, 0);
     text-decoration: none;
-    margin-top: 20px;
-    margin-left: 10px;
+    position: relative; 
+    top: 20px; 
+    margin-right: -315px;
 }
 
-.forgot-password,.needhelp {
+.input-box5 {
+    text-align: center;
+    width: 400px;
+    margin: 20px auto; 
+    font-size: 14px; 
+}
+
+.forgot-password {
     margin-right: 755px;
     font-weight: bold;
     font-size: 13px; 
@@ -150,11 +165,10 @@ label {
 }
 
 .input-box4 {
-    display: flex;
+    text-align: center;  
+    margin-top: -80px;   
     font-size: 13px;
     font-weight: bold;
-    margin-top: -250px;
-    margin-left: 1070px; 
     cursor: pointer;
 }
 

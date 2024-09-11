@@ -38,6 +38,7 @@ h1 {
 .username, .password {
     width: 100%; 
     padding-left: 40px; 
+    padding-right: 40px; 
     height: 36px;
     border-radius: 12px;
     border: 1px solid black;
@@ -69,7 +70,9 @@ h1 {
     transition: background-color 5000s ease-in-out 0s;
 }
 
-.input-box1 .el-icon-user, 
+.input-box1 .el-icon-user,
+.input-box1 .iconfont,
+.input-box .iconfont,
 .input-box .el-icon-lock {
     position: absolute;
     left: 10px; 
@@ -77,6 +80,25 @@ h1 {
     transform: translateY(-50%); 
     color: black;
     font-size: 16px;
+}
+
+.send-code-btn {
+    position: absolute;
+    right: 10px; 
+    top: 50%;
+    transform: translateY(-50%);
+    height: 30px;
+    background-color: rgba(200, 200, 211, 0.55);
+    font-weight: bold;
+    color: rgb(7, 7, 7);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 0 10px; 
+}
+
+.send-code-btn:hover {
+    background-color: #2878c3;
 }
 
 .login:hover, .login:focus{
@@ -90,7 +112,7 @@ h1 {
     height: 36px;
     border-radius: 12px;
     font-weight: bold;
-    background-color: rgba(135, 206, 250, 0.6);; 
+    background-color: rgba(135, 206, 250, 0.6);
     color: black; 
     cursor: pointer; 
     text-align: center;
@@ -125,16 +147,17 @@ label {
     font-size: 13px; 
     color: rgb(0, 0, 0);
     text-decoration: none;
-    margin-right: -315px; 
+    margin-left: 315px; 
 }
 
 .needhelp2 {
+    display: inline-block;
     font-weight: bold;
     font-size: 13px; 
     color: rgb(0, 0, 0);
     text-decoration: none;
     position: relative; 
-    top: 20px; 
+    top: 3px; 
     margin-right: -315px;
 }
 
@@ -165,19 +188,20 @@ label {
 }
 
 .input-box4 {
-    text-align: center;  
-    margin-top: -80px;   
+    margin-top: -80px;
+    text-align: center;     
     font-size: 13px;
     font-weight: bold;
-    cursor: pointer;
 }
 
 #togglePassword {
     position: absolute;
-    right: 10px;
-    top: 50%; 
+    left: 360px; 
+    top: 50%;
     transform: translateY(-50%);
     cursor: pointer;
+    font-size: 16px;
+    color: black;
 }
 
 footer {

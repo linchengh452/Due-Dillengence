@@ -23,8 +23,8 @@ h1 {
     font-style: italic;
     font-weight: bold;
     text-align: center;
-    margin-top: 120px;
-    margin-bottom: 180px;
+    margin-top: 60px;
+    margin-bottom: 150px;
     text-shadow: 3px 3px 5px rgba(75, 72, 72, 0.5); 
 }
 
@@ -38,7 +38,7 @@ h1 {
 .username, .password {
     width: 100%; 
     padding-left: 40px; 
-    padding-right: 40px; 
+    padding-right: 50px; 
     height: 36px;
     border-radius: 12px;
     border: 1px solid black;
@@ -158,7 +158,6 @@ label {
     text-decoration: none;
     position: relative; 
     top: 3px; 
-    margin-right: -315px;
 }
 
 .input-box5 {
@@ -189,12 +188,29 @@ label {
 
 .input-box4 {
     margin-top: -80px;
-    text-align: center;     
     font-size: 13px;
     font-weight: bold;
+    display: flex;
+    justify-content: space-between;  
+    align-items: center;             
+    width: 100%;                     
+    max-width: 400px;               
+    margin: 0 auto;                 
+    white-space: nowrap;           
+    padding: 0 20px;                
 }
 
 #togglePassword {
+    position: absolute;
+    left: 360px; 
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    font-size: 16px;
+    color: black;
+}
+
+#toggleConfirmPassword {
     position: absolute;
     left: 360px; 
     top: 50%;
@@ -211,7 +227,7 @@ footer {
     padding: 10px 20px;
     background-color: transparent;
     font-size: 14px;
-    margin-top: 400px; 
+    margin-top: 240px; 
     margin-left: 100px;
     margin-right: 100px;
 }

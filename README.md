@@ -120,3 +120,36 @@ Performed integration testing and optimization on the developed systems:
 #### 6. **Summary and Future Plans**
 - The completed tasks include the core functionality for the due diligence system, involving company information queries and risk checks based on ASIC, Google Custom Search API, and ROR API.
 - The next step is to further optimize the integration of search results, ensuring that risk information is automatically generated in final reports, and categorized by different risk weights. The system's functionality will also be extended to cover company information queries in other countries.
+
+
+# Test Case: Check Specific Risk Type "Scandal" for Apple Company
+
+| **Test Case ID** | TC001 |
+|------------------|-------|
+| **Test Title**   | Check specific risk type "scandal" for a company |
+| **Precondition** | 1. Valid Google API Key and Search Engine ID<br>2. Internet connection established |
+| **Test Steps**   | 1. Initialize the `RiskChecker` class with the provided API Key and Search Engine ID<br>2. Call the `check_single_risk` method, passing "Apple" as the company name and "scandal" as the risk type<br>3. Retrieve the search results |
+| **Input Data**   | Company Name: "Apple"<br>Risk Type: "scandal" |
+| **Expected Result** | The system returns search results related to the "scandal" risk type for Apple, with at least one result mentioning "batterygate" |
+| **Actual Result**   | The system returned multiple results related to Apple "batterygate" scandal, including titles like "Apple sending iPhone 'batterygate' settlement payments" |
+| **Status**       | Pass |
+
+## Detailed Steps:
+
+1. **Initialize `RiskChecker`**:
+   - Input a valid Google API Key and Search Engine ID.
+   - `python google.py`
+
+2. **Call `check_single_risk`**:
+   - Pass "Apple" as the company name and "scandal" as the risk type.
+
+3. **Expected Result**:
+   - The system should return search results related to Apple's scandal, particularly involving the "batterygate" incident.
+
+4. **Actual Result**:
+   - The test yielded multiple results about the "batterygate" incident, which confirms the functionality.
+
+## Key Points for Academic Presentation:
+- The test case demonstrates that the `RiskChecker` class works as expected when querying specific risks for a company using the Google API.
+- It also shows the flexibility of the system to focus on a particular risk type instead of querying all types.
+

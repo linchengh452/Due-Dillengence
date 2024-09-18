@@ -285,6 +285,7 @@ footer p {
     color: black;
     cursor: pointer;
     text-align: center;
+    font-size: 13px;
     text-decoration: none;
     border: none;
     outline: none;

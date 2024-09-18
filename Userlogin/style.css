@@ -14,7 +14,6 @@ body::before {
     left: 0;
     width: 100%;
     height: 100%;
-    /* background-color: rgba(255, 255, 255, 0.137);  */
     z-index: -1;
     pointer-events: none;
 }
@@ -26,6 +25,27 @@ h1 {
     margin-top: 60px;
     margin-bottom: 150px;
     text-shadow: 3px 3px 5px rgba(75, 72, 72, 0.5); 
+}
+
+h4 {
+    font-style: italic;
+    font-size: 15px;
+    text-align: center;
+    margin-top: -120px;
+    margin-bottom: 100px;
+    color: rgba(20, 20, 20, 0.637);
+}
+
+.createacc {
+    position: absolute;
+    top: -20px; 
+    right: 270px; 
+    margin-top: 10px; 
+}
+
+.create {
+    color: black;
+    padding: 10px; 
 }
 
 .input-box1, .input-box {
@@ -88,7 +108,7 @@ h1 {
     top: 50%;
     transform: translateY(-50%);
     height: 30px;
-    background-color: rgba(200, 200, 211, 0.55);
+    background-color: lightgrey;
     font-weight: bold;
     color: rgb(7, 7, 7);
     border: none;
@@ -251,4 +271,27 @@ footer {
 
 footer p {
     margin: 0; 
+}
+
+.continue {
+    display: block;
+    width: 100%;
+    max-width: 400px;
+    height: 36px;
+    line-height: 36px;
+    border-radius: 12px;
+    font-weight: bold;
+    background-color: rgba(135, 206, 250, 0.6);
+    color: black;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    border: none;
+    outline: none;
+    padding: 0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.continue:hover {
+    background-color: #2878c3;
 }

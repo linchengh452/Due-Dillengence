@@ -1,37 +1,39 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // 密码框逻辑
-    const togglePassword = document.querySelector('#togglePassword');
-    const password = document.querySelector('#password');
+    // Password field logic
+    const togglePassword = document.querySelector('#togglePassword'); // Select the toggle button for the password field
+    const password = document.querySelector('#password'); // Select the password input field
 
     togglePassword.addEventListener('click', function () {
-        const isPasswordVisible = password.getAttribute('type') === 'text';
-        password.setAttribute('type', isPasswordVisible ? 'password' : 'text');
-        togglePassword.classList.remove('icon-view_off', 'icon-view-2');
+        const isPasswordVisible = password.getAttribute('type') === 'text'; // Check if the password is currently visible
+        password.setAttribute('type', isPasswordVisible ? 'password' : 'text'); // Toggle between password and text type
+
+        togglePassword.classList.remove('icon-view_off', 'icon-view-2'); // Remove any existing icons
 
         if (isPasswordVisible) {
-            togglePassword.classList.add('icon-view-2');
+            togglePassword.classList.add('icon-view-2'); // Add the icon for hidden password
         } else {
-            togglePassword.classList.add('icon-view_off'); 
+            togglePassword.classList.add('icon-view_off'); // Add the icon for visible password
         }
 
-        console.log(togglePassword.classList);
+        console.log(togglePassword.classList); // Log the current class list for debugging
     });
 
-    // 确认密码框逻辑
-    const toggleConfirmPassword = document.querySelector('#toggleConfirmPassword');
-    const confirmPassword = document.querySelector('#confirmPassword');
+    // Confirm password field logic
+    const toggleConfirmPassword = document.querySelector('#toggleConfirmPassword'); // Select the toggle button for the confirm password field
+    const confirmPassword = document.querySelector('#confirmPassword'); // Select the confirm password input field
 
     toggleConfirmPassword.addEventListener('click', function () {
-        const isConfirmPasswordVisible = confirmPassword.getAttribute('type') === 'text';
-        confirmPassword.setAttribute('type', isConfirmPasswordVisible ? 'password' : 'text');
-        toggleConfirmPassword.classList.remove('icon-view_off', 'icon-view-2');
+        const isConfirmPasswordVisible = confirmPassword.getAttribute('type') === 'text'; // Check if confirm password is currently visible
+        confirmPassword.setAttribute('type', isConfirmPasswordVisible ? 'password' : 'text'); // Toggle between password and text type
+
+        toggleConfirmPassword.classList.remove('icon-view_off', 'icon-view-2'); // Remove any existing icons
 
         if (isConfirmPasswordVisible) {
-            toggleConfirmPassword.classList.add('icon-view-2');
+            toggleConfirmPassword.classList.add('icon-view-2'); // Add the icon for hidden password
         } else {
-            toggleConfirmPassword.classList.add('icon-view_off'); 
+            toggleConfirmPassword.classList.add('icon-view_off'); // Add the icon for visible password
         }
 
-        console.log(toggleConfirmPassword.classList);
+        console.log(toggleConfirmPassword.classList); // Log the current class list for debugging
     });
 });

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reset Password</title>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/vue@2"></script>
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <script src="togglePassword.js"></script>
+    <link rel="stylesheet" href="icon/iconfont.css">
+    <link rel="stylesheet" href="icon\email&code\iconfont.css">
+</head>
+
+<body>
+    <div class="background">
+        <h1>Reset Your Password</h1>
+        <div class="createacc">
+            <a href="signup.html" class="create">Create an account?			   </a>
+        </div>
+    </div>
+
+    <div> 
+        <h4>Your new password must be different with previously used password.</h4>
+    </div>
+
+    <div class="input-box4">
+        <a href="needhelp.html" class="needhelp">Need help?</a>
+    </div>
+	
+	<form action="">
+		<div class="input-box">
+			<i class="el-icon-lock"></i>
+			<input type="password" class="password" name="password" placeholder="Password" id="password">
+			<i class="iconfont icon-view-2" id="togglePassword" style="cursor: pointer;"></i>
+		</div>
+
+		<div class="input-box">
+			<i class="el-icon-lock"></i>
+			<input type="password" class="password" name="confirmPassword" placeholder="Confirm Password"
+				id="confirmPassword">
+			<i class="iconfont icon-view-2" id="toggleConfirmPassword" style="cursor: pointer;">
+			</i>
+		</div>
+		<div class="input-box">
+			<input type="button" class="login next" name="next" value="RESET">
+		</div>
+	</form>
+
+    <div class="input-box3">
+        <a href="index.html">Already have an account?</a>
+    </div>
+	
+	<script>
+	document.querySelector('.login.next').addEventListener('click',async function () {
+		  const form = document.querySelector('form');
+		  const formData = new FormData(form);
+		  const new_password = formData.get('confirmPassword');
+		  const old_password = formData.get('password');
+		  const token = localStorage.getItem('Token');
+		  console.log('令牌',token)
+	
+			try {
+				const response = await fetch('http://localhost:8000/users/password', {
+					method: 'PUT',
+					headers: {
+						'Content-Type': 'application/json',
+						'Authorization': `Bearer ${token}`
+					},
+					body: JSON.stringify({ old_password: old_password, new_password: new_password })
+				});
+				// const data = response.json();
+				console.log(response);
+			} catch (error) {
+				console.error('Error:', error);
+			}
+		});	
+		
+	</script>
+</body>
+
+</html>

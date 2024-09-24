@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account</title>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/vue@2"></script>
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <script src="togglePassword.js"></script>
+    <link rel="stylesheet" href="icon/iconfont.css">
+</head>
+
+<body>
+    <div class="background">
+        <h1>Create Account</h1>
+    </div>
+
+    <div class="input-box4">
+        <a href="index.html">Already have an account?</a>
+        <a href="needhelp.html" class="needhelp2">Need help?</a>
+    </div>
+	
+	<form action="">
+		<div class="input-box1">
+			<i class="el-icon-user"></i>
+			<input type="text" class="username" name="username" placeholder="User Name">
+		</div>
+
+		<div class="input-box">
+			<i class="el-icon-lock"></i>
+			<input type="password" class="password" name="password" placeholder="Password" id="password">
+			<i class="iconfont icon-view-2" id="togglePassword" style="cursor: pointer;"></i>
+		</div>
+
+		<div class="input-box">
+			<i class="el-icon-lock"></i>
+			<input type="password" class="password" name="confirmPassword" placeholder="Confirm Password"
+				id="confirmPassword">
+			<i class="iconfont icon-view-2" id="toggleConfirmPassword" style="cursor: pointer;"></i>
+		</div>
+
+		<div class="input-box">
+			<input type="button" class="login" name="login" value="NEXT">
+		</div>
+	</form>
+		
+    <div class="input-box2">
+        <input type="checkbox" class="checkbox" name="checkbox">
+        <label for="remember">By creating an account, you agree to the <span><a href="#">Term of Use</a></span> and
+            <span><a href="PrivacyPolicy.html">Privacy Policy</a></span>.</label>
+    </div>
+	<script>
+		const urlParams = new URLSearchParams(window.location.search);
+		const email = urlParams.get('email');
+		if (email) {
+		    console.log(email);
+		}
+		
+		
+		document.querySelector('.login').addEventListener('click', function () {
+		  const form = document.querySelector('form');
+		  const formData = new FormData(form);
+		  const username = formData.get('username');
+		  const password = formData.get('password');
+		  const confirmPassword = formData.get('confirmPassword');
+
+		  // 在这里进行数据验证，如果验证通过，发送请求到后端接口
+		  if (password === confirmPassword) {
+			fetch('http://localhost:8000/users/register', {
+			  method: 'POST',
+			  body: JSON.stringify({ username, email, password}),
+			  headers: {
+				'Content-Type': 'application/json'
+			  }
+			})
+			 .then(response => response.json())
+			 .then(data => {
+				console.log(data);
+			  })
+			 .catch(error => {
+				console.error('Error:', error);
+			  });
+		  } else {
+			console.log('Passwords do not match.');
+		  }
+		});
+	</script>
+
+</body>
+
+</html>

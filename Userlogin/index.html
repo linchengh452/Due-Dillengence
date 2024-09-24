@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Due Diligence login</title>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/vue@2"></script>
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <script src="togglePassword.js"></script>
+    <link rel="stylesheet" href="icon/iconfont.css">
+
+</head>
+
+<body>
+	
+    <div class="background">
+        <h1>Welcome to the Due Diligence System</h1>
+    </div>
+
+    <div class="input-box4">
+        <a href="needhelp.html" class="needhelp">Need help?</a>
+    </div>
+	
+	<form action="loginForm">
+		<div class="input-box1">
+			<i class="el-icon-user"></i>
+			<input type="text" class="username" name="username" placeholder="User Name">
+		</div>
+
+		<div class="input-box">
+			<i class="el-icon-lock"></i>
+			<input type="password" class="password" name="password" placeholder="Password" id="password">
+			<i class="iconfont icon-view-2" id="togglePassword" style="cursor: pointer;"></i>
+		</div>
+
+		<div class="input-box">
+			<input type="button" class="login" name="login" value="LOGIN">
+		</div>
+	</form>
+
+    <div class="input-box2">
+        <input type="checkbox" class="checkbox" name="checkbox" placeholder="Remember me">
+        <label for="remember">Remember me</label>
+        <a href="forgot.html" class="forgot-password">Forgot Password?</a>
+    </div>
+
+    <div class="input-box3">
+        <a href="signup.html">SignUp</a>
+    </div>
+
+    <footer>
+        <div class="footer-links">
+            <a href="#">About Us</a>
+            <a href="PrivacyPolicy.html">Privacy Policy</a>
+            <a href="#">Term of Use</a>
+        </div>
+        <div class="footer-rights">
+            <p>2024 Key. All Right Reserved | Design by Team092</p>
+        </div>
+    </footer>
+	<script>
+		// 发送 GET 请求
+		fetch('http://localhost:8000',
+		 {
+		  method: 'GET',
+		})
+		 .then(response => response.json())
+		 .then(data => {
+			console.log(data);
+		  })
+		 .catch(error => {
+			console.error('Error:', error);
+			});
+			
+		document.querySelector('.login').addEventListener('click',async function () {
+		  const form = document.querySelector('form');
+		  const formData = new FormData(form);
+		  const username = formData.get('username');
+		  const password = formData.get('password');
+
+			try {
+				const response = await fetch('http://localhost:8000/users/login', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/x-www-form-urlencoded'
+					},
+					body: new URLSearchParams({
+						username: username,
+						password: password,
+						grant_type: 'password'
+					})
+				});
+				console.log(await response)
+				const data = await response.json();
+				if (data.access_token) {
+					localStorage.setItem('Token', data.access_token);
+				};
+				console.log(response);
+			} catch (error) {
+				console.error('Error:', error);
+			}
+		});	
+		
+	</script>
+</body>
+
+</html>

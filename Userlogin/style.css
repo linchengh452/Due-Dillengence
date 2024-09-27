@@ -296,3 +296,10 @@ footer p {
 .continue:hover {
     background-color: #2878c3;
 }
+
+#password-strength,#password-match {
+    position: absolute; 
+    font-size: 13px;
+    text-align: center;
+    left: 10px;
+}

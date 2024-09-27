@@ -2,87 +2,135 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Account</title>
-    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
-    <link rel="stylesheet" href="style.css">
-    <script src="https://unpkg.com/vue@2"></script>
-    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
-    <script src="togglePassword.js"></script>
-    <link rel="stylesheet" href="icon/iconfont.css">
-    <link rel="stylesheet" href="icon\email&code\iconfont.css">
-	<script>
-		function getCurrentFileDirectory() {
-		  const url = window.location.href;
-		  const pathSegments = url.split('/');
-		  pathSegments.pop(); 
-		  return pathSegments.join('/');
-		}
-
-	</script>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Create Account</title>
+	<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+	<link rel="stylesheet" href="style.css">
+	<script src="https://unpkg.com/vue@2"></script>
+	<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+	<script src="togglePassword.js"></script>
+	<link rel="stylesheet" href="icon/iconfont.css">
 </head>
 
 <body>
-    <div class="background">
-        <h1>Create Account</h1>
-    </div>
+	<div class="background">
+		<h1>Create Account</h1>
+	</div>
 
-    <div class="input-box4">
-        <a href="needhelp.html" class="needhelp">Need help?</a>
-    </div>
+	<div class="input-box4">
+		<a href="index.html">Already have an account?</a>
+		<a href="needhelp.html" class="needhelp2">Need help?</a>
+	</div>
 
-    <div class="input-box1">
-        <span class="iconfont">&#xebca;</span>
-        <input type="text" class="username email" name="email" placeholder="Email Address">
-        <button type="button" class="send-code-btn">Send Code</button>
-    </div>
+	<form action="">
+		<div class="input-box1">
+			<i class="el-icon-user"></i>
+			<input type="text" class="username" name="username" placeholder="User Name">
+		</div>
 
-    <script>const button = document.querySelector('.send-code-btn')
-    button.addEventListener('click', function () {
-        button.style.backgroundColor = 'rgba(229, 229, 236, 0.726)';
-    });
-    </script>
+		<div class="input-box">
+			<i class="el-icon-lock"></i>
+			<input type="password" class="password" name="password" placeholder="Password" id="password"
+				oninput="checkPasswordStrength()">
+			<i class="iconfont icon-view-2" id="togglePassword" style="cursor: pointer;"></i>
+			<div id="password-strength"></div>
+		</div>
 
-    <div class="input-box5">
-        <span class="resend-code">Didn't recieve the email?</span>
-        <a href="#" class="resend-code">Click here to resend.</a>
-    </div>
+		<script>function checkPasswordStrength() {
+				const password = document.getElementById('password').value;
+				const strengthBar = document.getElementById('password-strength');
+				let strength = 0;
 
-    <div class="input-box">
-        <span class="iconfont">&#xe624;</span>
-        <input type="password" class="password code" name="code" placeholder="Vertification Code" id="password">
-        <i class="iconfont icon-view-2" id="togglePassword" style="cursor: pointer;"></i>
-    </div>
+				if (password.length >= 8) strength++;
+				if (/[A-Z]/.test(password)) strength++;
+				if (/[a-z]/.test(password)) strength++;
+				if (/[0-9]/.test(password)) strength++;
+				if (/[\W_]/.test(password)) strength++;
 
-    <div class="input-box">
-        <input type="button" class="login next" name="next" value="NEXT">
-    </div>
+				const messages = ["Very Weak", "Weak", "Moderate", "Strong", "Very Strong"];
+				strengthBar.textContent = `Password strength: ${messages[strength]}`;
+				strengthBar.style.color = ['#ff4d4f', '#ff7a45', '#ffa940', '#52c41a', '#237804'][strength];
+			}
+		</script>
 
-    <div class="input-box3">
-        <a href="index.html">Already have an account?</a>
-    </div>
+		<div class="input-box">
+			<i class="el-icon-lock"></i>
+			<input type="password" class="password" name="confirmPassword" placeholder="Confirm Password"
+				id="confirmPassword" oninput="checkPasswordMatch()">
+			<i class="iconfont icon-view-2" id="toggleConfirmPassword" style="cursor: pointer;"></i>
+			<div id="password-match"></div>
+		</div>
 
+		<script>
+			function checkPasswordMatch() {
+				const password = document.getElementById('password').value;
+				const confirmPassword = document.getElementById('confirmPassword').value;
+				const matchMessage = document.getElementById('password-match');
+
+				if (confirmPassword.length > 0 && confirmPassword.length > 0) {
+					if (password === confirmPassword) {
+						matchMessage.textContent = "Passwords match.";
+						matchMessage.style.color = "#52c41a"; 
+					} else {
+						matchMessage.textContent = "Passwords do not match.";
+						matchMessage.style.color = "#ff4d4f"; 
+					}
+				} else {
+					matchMessage.textContent = "";
+				}
+			}
+			document.getElementById('password').addEventListener('input', checkPasswordMatch);
+			document.getElementById('confirmPassword').addEventListener('input', checkPasswordMatch);
+		</script>
+
+		<div class="input-box">
+			<input type="button" class="login" name="login" value="NEXT">
+		</div>
+	</form>
+
+	<div class="input-box2">
+		<input type="checkbox" class="checkbox" name="checkbox">
+		<label for="remember">By creating an account, you agree to the <span><a href="#">Term of Use</a></span> and
+			<span><a href="PrivacyPolicy.html">Privacy Policy</a></span>.</label>
+	</div>
 	<script>
+		const urlParams = new URLSearchParams(window.location.search);
+		const email = urlParams.get('email');
+		if (email) {
+			console.log(email);
+		}
 
-		
-	   // 获取按钮元素
-		const nextButton = document.querySelector('.login.next');
-	
-		// 为按钮添加点击事件监听器
-		nextButton.addEventListener('click', function () {
-			const inputElement = document.querySelector('.username.email');
-			const emailValue = inputElement.value;
-			console.log('第一页邮箱',emailValue)
-			window.location.href = `http://127.0.0.1:8848/Userlogin/signup2.html?email=${encodeURIComponent(emailValue)}`;
-			
-			
-			
-			// // 跳转到另一个页面（这里假设要跳转到名为'new_page.html'的页面）
-			// window.location.href = getCurrentFileDirectory() +'/signup2.html';
+
+		document.querySelector('.login').addEventListener('click', function () {
+			const form = document.querySelector('form');
+			const formData = new FormData(form);
+			const username = formData.get('username');
+			const password = formData.get('password');
+			const confirmPassword = formData.get('confirmPassword');
+
+			// 在这里进行数据验证，如果验证通过，发送请求到后端接口
+			if (password === confirmPassword) {
+				fetch('http://localhost:8000/users/register', {
+					method: 'POST',
+					body: JSON.stringify({ username, email, password }),
+					headers: {
+						'Content-Type': 'application/json'
+					}
+				})
+					.then(response => response.json())
+					.then(data => {
+						console.log(data);
+					})
+					.catch(error => {
+						console.error('Error:', error);
+					});
+			} else {
+				console.log('Passwords do not match.');
+			}
 		});
-	
 	</script>
+
 </body>
 
 </html>

@@ -2,139 +2,154 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reset Password</title>
-    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
-    <link rel="stylesheet" href="style.css">
-    <script src="https://unpkg.com/vue@2"></script>
-    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
-    <script src="togglePassword.js"></script>
-    <link rel="stylesheet" href="icon/iconfont.css">
-    <link rel="stylesheet" href="icon\email&code\iconfont.css">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Reset Password</title>
+	<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+	<link rel="stylesheet" href="style.css">
+	<script src="https://unpkg.com/vue@2"></script>
+	<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+	<script src="togglePassword.js"></script>
+	<link rel="stylesheet" href="icon/iconfont.css">
+	<link rel="stylesheet" href="icon\email&code\iconfont.css">
 </head>
 
 <body>
-    <div class="background">
-        <h1>Reset Your Password</h1>
-        <div class="createacc">
-            <a href="signup.html" class="create">Create an account?			   </a>
-        </div>
-    </div>
+	<div class="background">
+		<h1>Reset Password</h1>
+	</div>
+	<div>
+		<h4>No worries! Follow the instructions to reset your password.</h4>
+	</div>
 
-    <div> 
-        <h4>Your new password must be different with previously used password.</h4>
-    </div>
+	<div class="input-box4">
+		<a href="index.html">Already have an account?</a>
+		<a href="needhelp.html" class="needhelp2">Need help?</a>
+	</div>
 
-    <div class="input-box4">
-        <a href="needhelp.html" class="needhelp">Need help?</a>
-    </div>
-	
 	<form action="">
 		<div class="input-box1">
 			<i class="el-icon-user"></i>
 			<input type="text" class="username" name="username" placeholder="User Name">
 		</div>
-	
+
+		<div class="input-box1">
+			<span class="iconfont">&#xebca;</span>
+			<input type="text" class="username email" name="email" placeholder="Email Address">
+		</div>
+
 		<div class="input-box">
 			<i class="el-icon-lock"></i>
-			<input type="password" class="password" name="password" placeholder="Password" id="password">
+			<input type="password" class="password" name="password" placeholder="Password" id="password"
+				oninput="checkPasswordStrength()">
 			<i class="iconfont icon-view-2" id="togglePassword" style="cursor: pointer;"></i>
+			<div id="password-strength"></div>
 		</div>
-	
+
+		<script>function checkPasswordStrength() {
+				const password = document.getElementById('password').value;
+				const strengthBar = document.getElementById('password-strength');
+				let strength = 0;
+
+				if (password.length >= 8) strength++;
+				if (/[A-Z]/.test(password)) strength++;
+				if (/[a-z]/.test(password)) strength++;
+				if (/[0-9]/.test(password)) strength++;
+				if (/[\W_]/.test(password)) strength++;
+
+				const messages = ["Very Weak", "Weak", "Moderate", "Strong", "Very Strong"];
+				strengthBar.textContent = `Password strength: ${messages[strength]}`;
+				strengthBar.style.color = ['#ff4d4f', '#ff7a45', '#ffa940', '#52c41a', '#237804'][strength];
+			}
+		</script>
+
 		<div class="input-box">
 			<i class="el-icon-lock"></i>
 			<input type="password" class="password" name="confirmPassword" placeholder="Confirm Password"
-				   id="confirmPassword">
+				id="confirmPassword" oninput="checkPasswordMatch()">
 			<i class="iconfont icon-view-2" id="toggleConfirmPassword" style="cursor: pointer;"></i>
+			<div id="password-match"></div>
 		</div>
-	
+
+		<script>
+			function checkPasswordMatch() {
+				const password = document.getElementById('password').value;
+				const confirmPassword = document.getElementById('confirmPassword').value;
+				const matchMessage = document.getElementById('password-match');
+
+				if (password.length > 0 && confirmPassword.length > 0) {
+					if (password === confirmPassword) {
+						matchMessage.textContent = "Passwords match.";
+						matchMessage.style.color = "#52c41a";
+					} else {
+						matchMessage.textContent = "Passwords do not match.";
+						matchMessage.style.color = "#ff4d4f";
+					}
+				} else {
+					matchMessage.textContent = "";
+				}
+			}
+			document.getElementById('password').addEventListener('input', checkPasswordMatch);
+			document.getElementById('confirmPassword').addEventListener('input', checkPasswordMatch);
+		</script>
+
 		<div class="input-box">
 			<input type="button" class="login" name="login" value="NEXT">
 		</div>
 	</form>
-	
+
 	<div class="input-box2">
-		<input type="checkbox" class="checkbox" id="agreeTerms" name="checkbox">
+		<input type="checkbox" class="checkbox" name="checkbox">
 		<label for="remember">By creating an account, you agree to the <span><a href="#">Term of Use</a></span> and
 			<span><a href="PrivacyPolicy.html">Privacy Policy</a></span>.</label>
 	</div>
-	
-	<div id="error-message" style="color: red; margin-top: 10px;"></div>
-	
+
 	<script>
-		document.querySelector('.login').addEventListener('click', function () {
+		// 监听按钮点击事件
+		document.querySelector('.login').addEventListener('click', async function () {
 			const form = document.querySelector('form');
 			const formData = new FormData(form);
-			const username = formData.get('username');
-			const password = formData.get('password');
-			const confirmPassword = formData.get('confirmPassword');
-			const agreeTerms = document.getElementById('agreeTerms').checked;
-			const errorMessage = document.getElementById('error-message');
-	
-			errorMessage.textContent = '';
-	
-			if (!agreeTerms) {
-				errorMessage.textContent = 'You must agree to the Terms of Use and Privacy Policy to create an account.';
-				return;
-			}
-	
-			if (password !== confirmPassword) {
-				errorMessage.textContent = 'Passwords do not match.';
-				return;
-			}
-	
-			fetch('http://localhost:8000/users/register', {
-				method: 'POST',
-				body: JSON.stringify({ username, password }),
-				headers: {
-					'Content-Type': 'application/json'
-				}
-			})
-				.then(response => response.json())
-				.then(data => {
-					console.log(data);
-				})
-				.catch(error => {
-					console.error('Error:', error);
-				});
-		});
-	</script>
-		<div class="input-box">
-			<input type="button" class="login next" name="next" value="RESET">
-		</div>
-	</form>
+			const new_password = formData.get('confirmPassword');
+			const old_password = formData.get('password');
+			const token = localStorage.getItem('Token');  // 从 localStorage 获取 token
+			const errorMessage = document.getElementById('password-match');
 
-    <div class="input-box3">
-        <a href="index.html">Already have an account?</a>
-    </div>
-	
-	<script>
-	document.querySelector('.login.next').addEventListener('click',async function () {
-		  const form = document.querySelector('form');
-		  const formData = new FormData(form);
-		  const new_password = formData.get('confirmPassword');
-		  const old_password = formData.get('password');
-		  const token = localStorage.getItem('Token');
-		  console.log('令牌',token)
-	
+			// 检查密码匹配
+			if (old_password !== new_password) {
+				errorMessage.textContent = 'Passwords do not match.';
+				errorMessage.style.color = '#ff4d4f';  // 红色提示不匹配
+				return;  // 阻止发送请求
+			} else {
+				errorMessage.textContent = '';  // 清空不匹配的提示
+			}
+
 			try {
 				const response = await fetch('http://localhost:8000/users/password', {
 					method: 'PUT',
 					headers: {
 						'Content-Type': 'application/json',
-						'Authorization': `Bearer ${token}`
+						'Authorization': `Bearer ${token}` // 设置授权头部
 					},
 					body: JSON.stringify({ old_password: old_password, new_password: new_password })
 				});
-				// const data = response.json();
-				console.log(response);
+
+				const data = await response.json();
+
+				// 判断请求是否成功
+				if (response.ok) {
+					alert('Password successfully reset!');
+					// 这里可以重定向用户到登录页面或其他页面
+					window.location.href = 'index.html';
+				} else {
+					alert(`Error resetting password: ${data.message || 'Unknown error'}`);
+				}
 			} catch (error) {
 				console.error('Error:', error);
+				alert('There was an error resetting the password.');
 			}
-		});	
-		
+		});
 	</script>
+
 </body>
 
 </html>

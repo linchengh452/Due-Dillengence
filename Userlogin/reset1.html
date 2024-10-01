@@ -11,7 +11,7 @@
 	<script src="https://unpkg.com/element-ui/lib/index.js"></script>
 	<script src="togglePassword.js"></script>
 	<link rel="stylesheet" href="icon/iconfont.css">
-	<link rel="stylesheet" href="icon\email&code\iconfont.css">
+	<link rel="stylesheet" href="icon/email&code/iconfont.css">
 </head>
 
 <body>
@@ -27,26 +27,28 @@
 		<a href="needhelp.html" class="needhelp2">Need help?</a>
 	</div>
 
-	<form action="">
+	<form id="resetPasswordForm">
 		<div class="input-box1">
 			<i class="el-icon-user"></i>
-			<input type="text" class="username" name="username" placeholder="User Name">
+			<input type="text" class="username" name="username" placeholder="User Name" required>
 		</div>
 
 		<div class="input-box1">
 			<span class="iconfont">&#xebca;</span>
-			<input type="text" class="username email" name="email" placeholder="Email Address">
+			<input type="email" class="username email" name="email" placeholder="Email Address" required>
 		</div>
 
 		<div class="input-box">
 			<i class="el-icon-lock"></i>
-			<input type="password" class="password" name="password" placeholder="Password" id="password"
-				oninput="checkPasswordStrength()">
+			<input type="password" class="password" name="password" placeholder="New Password" id="password"
+				oninput="checkPasswordStrength()" required>
 			<i class="iconfont icon-view-2" id="togglePassword" style="cursor: pointer;"></i>
 			<div id="password-strength"></div>
 		</div>
 
-		<script>function checkPasswordStrength() {
+		<script>
+			// 检查密码强度
+			function checkPasswordStrength() {
 				const password = document.getElementById('password').value;
 				const strengthBar = document.getElementById('password-strength');
 				let strength = 0;
@@ -66,12 +68,13 @@
 		<div class="input-box">
 			<i class="el-icon-lock"></i>
 			<input type="password" class="password" name="confirmPassword" placeholder="Confirm Password"
-				id="confirmPassword" oninput="checkPasswordMatch()">
+				id="confirmPassword" oninput="checkPasswordMatch()" required>
 			<i class="iconfont icon-view-2" id="toggleConfirmPassword" style="cursor: pointer;"></i>
 			<div id="password-match"></div>
 		</div>
 
 		<script>
+			// 确认密码是否匹配
 			function checkPasswordMatch() {
 				const password = document.getElementById('password').value;
 				const confirmPassword = document.getElementById('confirmPassword').value;
@@ -89,29 +92,27 @@
 					matchMessage.textContent = "";
 				}
 			}
-			document.getElementById('password').addEventListener('input', checkPasswordMatch);
-			document.getElementById('confirmPassword').addEventListener('input', checkPasswordMatch);
 		</script>
 
 		<div class="input-box">
-			<input type="button" class="login" name="login" value="NEXT">
+			<input type="button" class="login" name="resetPassword" value="NEXT">
 		</div>
 	</form>
 
 	<div class="input-box2">
-		<input type="checkbox" class="checkbox" name="checkbox">
-		<label for="remember">By creating an account, you agree to the <span><a href="#">Term of Use</a></span> and
+		<input type="checkbox" class="checkbox" name="checkbox" required>
+		<label for="remember">By resetting the password, you agree to the <span><a href="#">Term of Use</a></span> and
 			<span><a href="PrivacyPolicy.html">Privacy Policy</a></span>.</label>
 	</div>
 
 	<script>
-		// 监听按钮点击事件
+		// 监听按钮点击事件，处理密码重置请求
 		document.querySelector('.login').addEventListener('click', async function () {
-			const form = document.querySelector('form');
+			const form = document.getElementById('resetPasswordForm');
 			const formData = new FormData(form);
 			const new_password = formData.get('confirmPassword');
 			const old_password = formData.get('password');
-			const token = localStorage.getItem('Token');  // 从 localStorage 获取 token
+			const token = localStorage.getItem('Token'); // 从 localStorage 获取 token
 			const errorMessage = document.getElementById('password-match');
 
 			// 检查密码匹配
@@ -124,7 +125,7 @@
 			}
 
 			try {
-				const response = await fetch('http://localhost:8000/users/password', {
+				const response = await fetch('http://localhost:8001/users/password', {
 					method: 'PUT',
 					headers: {
 						'Content-Type': 'application/json',

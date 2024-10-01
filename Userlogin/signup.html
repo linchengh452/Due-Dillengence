@@ -27,18 +27,18 @@
     <form id="registerForm">
         <div class="input-box1">
             <i class="el-icon-user"></i>
-            <input type="text" class="username" name="username" placeholder="User Name">
+            <input type="text" class="username" name="username" placeholder="User Name" required>
         </div>
 
         <div class="input-box1">
             <span class="iconfont">&#xebca;</span>
-            <input type="text" class="username email" name="email" placeholder="Email Address">
+            <input type="email" class="username email" name="email" placeholder="Email Address" required>
         </div>
 
         <div class="input-box">
             <i class="el-icon-lock"></i>
             <input type="password" class="password" name="password" placeholder="Password" id="password"
-                oninput="checkPasswordStrength()">
+                oninput="checkPasswordStrength()" required>
             <i class="iconfont icon-view-2" id="togglePassword" style="cursor: pointer;"></i>
             <div id="password-strength"></div>
         </div>
@@ -64,7 +64,7 @@
         <div class="input-box">
             <i class="el-icon-lock"></i>
             <input type="password" class="password" name="confirmPassword" placeholder="Confirm Password"
-                id="confirmPassword" oninput="checkPasswordMatch()">
+                id="confirmPassword" oninput="checkPasswordMatch()" required>
             <i class="iconfont icon-view-2" id="toggleConfirmPassword" style="cursor: pointer;"></i>
             <div id="password-match"></div>
         </div>
@@ -75,7 +75,6 @@
                 const confirmPassword = document.getElementById('confirmPassword').value;
                 const matchMessage = document.getElementById('password-match');
 
-                // 修正条件
                 if (password.length > 0 && confirmPassword.length > 0) {
                     if (password === confirmPassword) {
                         matchMessage.textContent = "Passwords match.";
@@ -88,26 +87,24 @@
                     matchMessage.textContent = "";
                 }
             }
-            // 确保匹配检查正确绑定到输入事件
-            document.getElementById('password').addEventListener('input', checkPasswordMatch);
-            document.getElementById('confirmPassword').addEventListener('input', checkPasswordMatch);
         </script>
 
         <div class="input-box">
-            <input type="button" class="login" name="login" value="NEXT">
+            <input type="submit" class="login" name="login" value="NEXT">
         </div>
     </form>
 
     <div class="input-box2">
-        <input type="checkbox" class="checkbox" name="checkbox" id="agreeTerms">
-        <label for="remember">By creating an account, you agree to the <span><a href="#">Term of Use</a></span> and
+        <input type="checkbox" class="checkbox" name="checkbox" id="agreeTerms" required>
+        <label for="agreeTerms">By creating an account, you agree to the <span><a href="#">Term of Use</a></span> and
             <span><a href="PrivacyPolicy.html">Privacy Policy</a></span>.</label>
     </div>
 
     <script>
-        document.querySelector('.login').addEventListener('click', function () {
-            const form = document.getElementById('registerForm');
-            const formData = new FormData(form);
+        document.getElementById('registerForm').addEventListener('submit', function (event) {
+            event.preventDefault(); // 防止表单提交重新加载页面
+
+            const formData = new FormData(event.target);
             const username = formData.get('username');
             const email = formData.get('email');
             const password = formData.get('password');
@@ -126,23 +123,34 @@
                 return;
             }
 
-            // 验证成功，发送数据到后端
-            fetch('http://localhost:8000/users/register', {
+            // 验证成功，禁用按钮避免重复提交
+            document.querySelector('.login').disabled = true;
+
+            // 发送数据到后端
+            fetch('http://localhost:8001/users/register', {
                 method: 'POST',
                 body: JSON.stringify({ username, email, password }),
                 headers: {
                     'Content-Type': 'application/json'
                 }
             })
-                .then(response => response.json())
+                .then(response => {
+                    if (!response.ok) {
+                        return response.json().then(err => { throw new Error(err.detail || 'Bad Request'); });
+                    }
+                    return response.json();
+                })
                 .then(data => {
-                    console.log(data);
                     alert('Account created successfully!');
                     window.location.href = 'index.html'; // 注册成功后跳转
                 })
                 .catch(error => {
-                    console.error('Error:', error);
-                    alert('There was an error creating your account.');
+                    console.error('Error:', error.message);
+                    alert(error.message || 'There was an error creating your account.');
+                })
+                .finally(() => {
+                    // 重新启用按钮
+                    document.querySelector('.login').disabled = false;
                 });
         });
     </script>

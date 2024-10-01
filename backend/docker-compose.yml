@@ -15,6 +15,11 @@ services:
       - db_data:/var/lib/mysql
     networks:
       - research_network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
 
   adminer:
     image: adminer
@@ -33,7 +38,8 @@ services:
     ports:
       - "8001:8000"
     depends_on:
-      - db
+      db:
+        condition: service_healthy  # 确保 MySQL 完全启动
     networks:
       - research_network
 

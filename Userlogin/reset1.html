@@ -30,25 +30,76 @@
         <a href="needhelp.html" class="needhelp">Need help?</a>
     </div>
 	
-	<div class="input-box1">
-		<i class="el-icon-user"></i>
-		<input type="text" class="username" name="username" placeholder="User Name">
-	</div>
-	
 	<form action="">
+		<div class="input-box1">
+			<i class="el-icon-user"></i>
+			<input type="text" class="username" name="username" placeholder="User Name">
+		</div>
+	
 		<div class="input-box">
 			<i class="el-icon-lock"></i>
 			<input type="password" class="password" name="password" placeholder="Password" id="password">
 			<i class="iconfont icon-view-2" id="togglePassword" style="cursor: pointer;"></i>
 		</div>
-
+	
 		<div class="input-box">
 			<i class="el-icon-lock"></i>
 			<input type="password" class="password" name="confirmPassword" placeholder="Confirm Password"
-				id="confirmPassword">
-			<i class="iconfont icon-view-2" id="toggleConfirmPassword" style="cursor: pointer;">
-			</i>
+				   id="confirmPassword">
+			<i class="iconfont icon-view-2" id="toggleConfirmPassword" style="cursor: pointer;"></i>
 		</div>
+	
+		<div class="input-box">
+			<input type="button" class="login" name="login" value="NEXT">
+		</div>
+	</form>
+	
+	<div class="input-box2">
+		<input type="checkbox" class="checkbox" id="agreeTerms" name="checkbox">
+		<label for="remember">By creating an account, you agree to the <span><a href="#">Term of Use</a></span> and
+			<span><a href="PrivacyPolicy.html">Privacy Policy</a></span>.</label>
+	</div>
+	
+	<div id="error-message" style="color: red; margin-top: 10px;"></div>
+	
+	<script>
+		document.querySelector('.login').addEventListener('click', function () {
+			const form = document.querySelector('form');
+			const formData = new FormData(form);
+			const username = formData.get('username');
+			const password = formData.get('password');
+			const confirmPassword = formData.get('confirmPassword');
+			const agreeTerms = document.getElementById('agreeTerms').checked;
+			const errorMessage = document.getElementById('error-message');
+	
+			errorMessage.textContent = '';
+	
+			if (!agreeTerms) {
+				errorMessage.textContent = 'You must agree to the Terms of Use and Privacy Policy to create an account.';
+				return;
+			}
+	
+			if (password !== confirmPassword) {
+				errorMessage.textContent = 'Passwords do not match.';
+				return;
+			}
+	
+			fetch('http://localhost:8000/users/register', {
+				method: 'POST',
+				body: JSON.stringify({ username, password }),
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			})
+				.then(response => response.json())
+				.then(data => {
+					console.log(data);
+				})
+				.catch(error => {
+					console.error('Error:', error);
+				});
+		});
+	</script>
 		<div class="input-box">
 			<input type="button" class="login next" name="next" value="RESET">
 		</div>

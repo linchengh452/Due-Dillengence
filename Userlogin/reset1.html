@@ -106,17 +106,17 @@
 	</div>
 
 	<script>
-		// 监听按钮点击事件，处理密码重置请求
 		document.querySelector('.login').addEventListener('click', async function () {
 			const form = document.getElementById('resetPasswordForm');
 			const formData = new FormData(form);
-			const new_password = formData.get('confirmPassword');
-			const old_password = formData.get('password');
-			const token = localStorage.getItem('Token'); // 从 localStorage 获取 token
+			const username = formData.get('username');
+			const email = formData.get('email');
+			const new_password = formData.get('confirmPassword'); // 获取确认的密码
 			const errorMessage = document.getElementById('password-match');
+			const token = localStorage.getItem('Token');  // 从 localStorage 获取 token
 
 			// 检查密码匹配
-			if (old_password !== new_password) {
+			if (document.getElementById('password').value !== new_password) {
 				errorMessage.textContent = 'Passwords do not match.';
 				errorMessage.style.color = '#ff4d4f';  // 红色提示不匹配
 				return;  // 阻止发送请求
@@ -131,7 +131,11 @@
 						'Content-Type': 'application/json',
 						'Authorization': `Bearer ${token}` // 设置授权头部
 					},
-					body: JSON.stringify({ old_password: old_password, new_password: new_password })
+					body: JSON.stringify({
+						username: username,
+						email: email,
+						new_password: new_password // 使用新的密码字段
+					})
 				});
 
 				const data = await response.json();
@@ -139,8 +143,7 @@
 				// 判断请求是否成功
 				if (response.ok) {
 					alert('Password successfully reset!');
-					// 这里可以重定向用户到登录页面或其他页面
-					window.location.href = 'index.html';
+					window.location.href = 'reset2.html';
 				} else {
 					alert(`Error resetting password: ${data.message || 'Unknown error'}`);
 				}

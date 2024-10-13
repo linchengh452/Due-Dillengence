@@ -11,19 +11,21 @@
     <script src="https://unpkg.com/element-ui/lib/index.js"></script>
     <script src="togglePassword.js"></script>
     <link rel="stylesheet" href="icon/iconfont.css">
-
 </head>
 
 <body>
 
+    <!-- Background section with title -->
     <div class="background">
         <h1>Welcome to the Due Diligence System</h1>
     </div>
 
+    <!-- Link to help page -->
     <div class="input-box4">
         <a href="needhelp.html" class="needhelp">Need help?</a>
     </div>
 
+    <!-- Login form -->
     <form id="loginForm">
         <div class="input-box1">
             <i class="el-icon-user"></i>
@@ -41,16 +43,19 @@
         </div>
     </form>
 
+    <!-- Remember me and Forgot password section -->
     <div class="input-box2">
         <input type="checkbox" class="checkbox" id="rememberMe">
         <label for="rememberMe">Remember me</label>
         <a href="reset1.html" class="forgot-password">Forgot Password?</a>
     </div>
 
+    <!-- Signup link -->
     <div class="input-box3">
         <a href="signup.html">SignUp</a>
     </div>
 
+    <!-- Footer section -->
     <footer>
         <div class="footer-links">
             <a href="#">About Us</a>
@@ -63,15 +68,15 @@
     </footer>
 
     <script>
+        // Handle login form submission
         document.getElementById('loginForm').addEventListener('submit', async function (event) {
-            event.preventDefault(); // 防止表单提交重新加载页面
+            event.preventDefault(); // Prevent page reload on form submission
 
-            const form = document.getElementById('loginForm');
-            const formData = new FormData(form);
-            const username = formData.get('username');
-            const password = formData.get('password');
+            const username = document.querySelector('.username').value;
+            const password = document.querySelector('.password').value;
 
             try {
+                // Send login request to backend
                 const response = await fetch('http://localhost:8001/users/login', {
                     method: 'POST',
                     headers: {
@@ -80,30 +85,68 @@
                     body: new URLSearchParams({
                         username: username,
                         password: password,
-                        grant_type: 'password' // OAuth2 password flow 的标准参数
+                        grant_type: 'password' // OAuth2 password flow
                     })
                 });
 
-                // 检查是否有响应错误
+                // Handle failed login attempt
                 if (!response.ok) {
                     const errorData = await response.json();
                     alert(errorData.detail || 'Login failed.');
-                    throw new Error('Login failed.');
+                    return;
                 }
 
                 const data = await response.json();
+                // Store access token in local storage
+                localStorage.setItem('Token', data.access_token);
 
-                // 登录成功，保存令牌到 localStorage
-                if (data.access_token) {
-                    localStorage.setItem('Token', data.access_token);
-                    alert('Login successful! Redirecting...');
-                    window.location.href = 'dashboard.html'; // 登录成功后重定向
-                }
+                alert('Login successful! Retrieving user information...');
+                
+                // Fetch user information after successful login
+                await fetchUserInfo();
+
+                // Redirect to profile page
+                window.location.href = 'profile.html';
             } catch (error) {
                 console.error('Error:', error);
                 alert('Login failed. Please check your username and password.');
             }
         });
+
+        // Fetch user information using stored token
+        async function fetchUserInfo() {
+            try {
+                const token = localStorage.getItem('Token');
+                if (!token) {
+                    throw new Error('No token found. Please log in again.');
+                }
+
+                // Send request to fetch user info from backend
+                const response = await fetch('http://localhost:8001/users/users/me', {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': 'Bearer ' + token // Use Bearer authentication
+                    }
+                });
+
+                // Handle error in fetching user info
+                if (!response.ok) {
+                    throw new Error('Failed to fetch user information.');
+                }
+
+                const userData = await response.json();
+                console.log('User Info:', userData);
+
+                // Display user information in an alert box
+                alert(`Welcome ${userData.username}!\nEmail: ${userData.email}`);
+
+                // Store user information in local storage
+                localStorage.setItem('userInfo', JSON.stringify(userData));
+            } catch (error) {
+                console.error('Error fetching user info:', error);
+                alert('Failed to retrieve user information. Please try again.');
+            }
+        }
     </script>
 
 </body>

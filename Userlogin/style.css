@@ -102,25 +102,6 @@ h4 {
     font-size: 16px;
 }
 
-.send-code-btn {
-    position: absolute;
-    right: 10px; 
-    top: 50%;
-    transform: translateY(-50%);
-    height: 30px;
-    background-color: lightgrey;
-    font-weight: bold;
-    color: rgb(7, 7, 7);
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    padding: 0 10px; 
-}
-
-.send-code-btn:hover {
-    background-color: #2878c3;
-}
-
 .login:hover, .login:focus{
     background-color: #3892e6;
     background-color: #3892e6;
@@ -147,8 +128,7 @@ h4 {
     align-items: center;
     width: 100%;
     max-width: 400px;
-    margin: 0 auto;  /* 在父容器内居中 */
-    font-size: 13px;
+    margin: 0 auto;      font-size: 13px;
     font-weight: bold;
 }
 

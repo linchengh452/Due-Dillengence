@@ -21,7 +21,7 @@ async def lifespan(app: FastAPI):
 app = FastAPI(lifespan=lifespan)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # 可以根据实际需求限制允许的前端域名
+    allow_origins=["https://github.com/linchengh452/Due-Dillengence.git"],  # 可以根据实际需求限制允许的前端域名
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
